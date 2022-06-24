@@ -7,7 +7,14 @@ import java.util.List;
 import common.DAO;
 
 public class ExperienceDAO extends DAO {
-	private void insert(Experience experience) {
+	private static ExperienceDAO dao = null;
+	private ExperienceDAO() {}
+	public static ExperienceDAO getInstance() {
+		if(dao==null)
+			dao=new ExperienceDAO();
+		return dao;
+	}
+	public void insert(Experience experience) {
 		int result = 0;
 		try {
 			connect();
@@ -22,7 +29,7 @@ public class ExperienceDAO extends DAO {
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ Ãß°¡µÇ¾ú½À´Ï´Ù. ( Ã¼Çèµî·Ï ¿Ï·á )");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ( Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ )");
 		}
 	}
 	public void update(Experience cafe) {
@@ -40,7 +47,7 @@ public class ExperienceDAO extends DAO {
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ ¼öÁ¤µÇ¾ú½À´Ï´Ù. ( Ã¼Çè¼öÁ¤ ¿Ï·á )");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ( Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ )");
 		}
 	}
 	public void delete(int id) {
@@ -55,7 +62,7 @@ public class ExperienceDAO extends DAO {
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù. ( Ã¼Çè»èÁ¦ ¿Ï·á )");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ( Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ )");
 		}
 	}
 	public Experience selectOne(int id) {

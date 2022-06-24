@@ -7,7 +7,14 @@ import java.util.List;
 import common.DAO;
 
 public class CafeDAO extends DAO {
-	private void insert(Cafe cafe) {
+	private static CafeDAO dao = null;
+	private CafeDAO() {}
+	public static CafeDAO getInstance() {
+		if(dao==null)
+			dao=new CafeDAO();
+		return dao;
+	}
+	public void insert(Cafe cafe) {
 		int result = 0;
 		try {
 			connect();
@@ -22,7 +29,7 @@ public class CafeDAO extends DAO {
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ Ãß°¡µÇ¾ú½À´Ï´Ù. ( Ä«Æäµî·Ï ¿Ï·á )");
+			System.out.println(result + "ê°œì˜ í–‰ì´ ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤. ( ì¹´í˜ì¶”ê°€ ì™„ë£Œ )");
 		}
 	}
 	public void update(Cafe cafe) {
@@ -40,7 +47,7 @@ public class CafeDAO extends DAO {
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ ¼öÁ¤µÇ¾ú½À´Ï´Ù. ( Ä«Æä¼öÁ¤ ¿Ï·á )");
+			System.out.println(result + "ê°œì˜ í–‰ì´ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤. ( ì¹´í˜ì •ë³´ ë³€ê²½ ì™„ë£Œ )");
 		}
 	}
 	public void delete(int id) {
@@ -55,7 +62,7 @@ public class CafeDAO extends DAO {
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù. ( Ä«Æä»èÁ¦ ¿Ï·á )");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ( Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ )");
 		}
 	}
 	public Cafe selectOne(int id) {

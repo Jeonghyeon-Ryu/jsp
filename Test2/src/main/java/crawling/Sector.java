@@ -9,11 +9,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ReadSector {
+public class Sector {
 	Set<String> sectorList = new HashSet<>();
 	String path = this.getClass().getResource("/").getPath()+"/resource/SectorList.txt";
 	private File file = new File(path);
-	public ReadSector() {
+	public Sector() {
+		readSectorFile();
+	}
+	public void readSectorFile() {
 		String line;
 		String[] tmp = new String[3];
 		try {
@@ -34,7 +37,6 @@ public class ReadSector {
 			System.out.println("Sector 읽기 실패 : " + e.toString());
 		}
 	}
-	
 	public void printSectorList() {
 		List<String> list = new ArrayList<>(sectorList);
 		for(int i=0; i<list.size(); i++) {
@@ -56,4 +58,5 @@ public class ReadSector {
 	public List<String> getSectorAll() {
 		return new ArrayList<String>(sectorList);
 	}
+	
 }

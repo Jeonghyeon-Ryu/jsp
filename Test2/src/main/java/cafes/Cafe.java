@@ -1,50 +1,11 @@
 package cafes;
 
-public class Cafe {
-	private int id;
-	private String name;
-	private String address;
-	private String phone;
-	private String notice;
-	
-	
-	
+import common.BaseInfo;
+
+public class Cafe extends BaseInfo{	
 	@Override
 	public String toString() {
-		return "Ä«Æä [ÀÌ¸§=" + name + ", ÁÖ¼Ò=" + address + ", ÀüÈ­¹øÈ£=" + phone + ", ¾Ë¸²=" + notice
+		return "ì¹´í˜ì´ë¦„=" + name + ", ì£¼ì†Œ=" + address + ", ì „í™”ë²ˆí˜¸=" + phone + ", ì†Œê°œ=" + notice
 				+ "]";
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getNotice() {
-		return notice;
-	}
-	public void setNotice(String notice) {
-		this.notice = notice;
-	}
-	
-	
-	
 }

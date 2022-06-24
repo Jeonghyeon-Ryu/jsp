@@ -7,7 +7,14 @@ import java.util.List;
 import common.DAO;
 
 public class AmusementParkDAO extends DAO{
-	private void insert(AmusementPark amusementPark) {
+	private static AmusementParkDAO dao = null;
+	private AmusementParkDAO() {}
+	public static AmusementParkDAO getInstance() {
+		if(dao==null)
+			dao=new AmusementParkDAO();
+		return dao;
+	}
+	public void insert(AmusementPark amusementPark) {
 		int result = 0;
 		try {
 			connect();
@@ -22,7 +29,7 @@ public class AmusementParkDAO extends DAO{
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ Ãß°¡µÇ¾ú½À´Ï´Ù. ( ³îÀÌ°ø¿øµî·Ï ¿Ï·á )");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ( ï¿½ï¿½ï¿½Ì°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ )");
 		}
 	}
 	public void update(AmusementPark cafe) {
@@ -40,7 +47,7 @@ public class AmusementParkDAO extends DAO{
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ ¼öÁ¤µÇ¾ú½À´Ï´Ù. ( ³îÀÌ°ø¿ø¼öÁ¤ ¿Ï·á )");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ( ï¿½ï¿½ï¿½Ì°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ )");
 		}
 	}
 	public void delete(int id) {
@@ -55,7 +62,7 @@ public class AmusementParkDAO extends DAO{
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù. ( ³îÀÌ°ø¿ø»èÁ¦ ¿Ï·á )");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ( ï¿½ï¿½ï¿½Ì°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ )");
 		}
 	}
 	public AmusementPark selectOne(int id) {

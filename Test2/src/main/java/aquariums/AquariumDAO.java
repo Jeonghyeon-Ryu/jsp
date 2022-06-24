@@ -4,10 +4,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import amusementParks.AmusementParkDAO;
 import common.DAO;
 
 public class AquariumDAO extends DAO{
-	private void insert(Aquarium aquarium) {
+	private static AquariumDAO dao = null;
+	private AquariumDAO() {}
+	public static AquariumDAO getInstance() {
+		if(dao==null)
+			dao=new AquariumDAO();
+		return dao;
+	}
+	public void insert(Aquarium aquarium) {
 		int result = 0;
 		try {
 			connect();
@@ -22,7 +30,7 @@ public class AquariumDAO extends DAO{
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ Ãß°¡µÇ¾ú½À´Ï´Ù. ( ¾ÆÄí¾Æ¸®¿òµî·Ï ¿Ï·á )");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ( ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ )");
 		}
 	}
 	public void update(Aquarium cafe) {
@@ -40,7 +48,7 @@ public class AquariumDAO extends DAO{
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ ¼öÁ¤µÇ¾ú½À´Ï´Ù. ( ¾ÆÄí¾Æ¸®¿ò¼öÁ¤ ¿Ï·á )");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ( ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ )");
 		}
 	}
 	public void delete(int id) {
@@ -55,7 +63,7 @@ public class AquariumDAO extends DAO{
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "°³ÀÇ ÇàÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù. ( ¾ÆÄí¾Æ¸®¿ò»èÁ¦ ¿Ï·á )");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ( ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ )");
 		}
 	}
 	public Aquarium selectOne(int id) {
