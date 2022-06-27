@@ -16,8 +16,14 @@ public class Member {
 	// toString for TEST
 	@Override
 	public String toString() {
-		return "[ID=" + id + ", PW=" + pw + ", ÀÌ¸§=" + name + ", ¼º=" + sex + ", »ıÀÏ=" + birth + ", ÁÖ¼Ò="
-				+ address + ", ÀüÈ­¹øÈ£=" + phone + ", ±ÇÇÑ=" + authority + "]";
+		String info = "[ ID:" + id + ", ì´ë¦„:" + name + ", ì„±:" + sex + ", ìƒì¼:" + birth + ", ì£¼ì†Œ:"
+				+ address + ", ì „í™”ë²ˆí˜¸:" + phone + ", ê¶Œí•œ:";
+		if(authority==0) {
+			info+="ìœ ì € ]";
+		} else {
+			info+="ê´€ë¦¬ì ]";
+		}
+		return info;
 	}
 	// Getter Setter
 	public String getId() {

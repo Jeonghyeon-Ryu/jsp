@@ -7,7 +7,7 @@ import java.util.List;
 import common.DAO;
 
 public class MemberDAO extends DAO {
-	//싱글톤
+	//占싱깍옙占쏙옙
 	private static MemberDAO mDAO = null;
 	private MemberDAO() {}
 	public static MemberDAO getInstance() {
@@ -36,7 +36,7 @@ public class MemberDAO extends DAO {
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "개의 행이 추가되었습니다. ( 회원등록 완료 )");
+			System.out.println(" INSERTED " + result + " ROWS (MEMBER)");
 		}
 	}
 	public void update(Member member) {
@@ -57,7 +57,7 @@ public class MemberDAO extends DAO {
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "개의 행이 수정되었습니다. ( 회원수정 완료 )");
+			System.out.println(" UPDATED " + result + " ROWS (MEMBER)");
 		}
 	}
 	public void delete(String id) {
@@ -72,7 +72,7 @@ public class MemberDAO extends DAO {
 			e.printStackTrace();
 		} finally {
 			disconnect();
-			System.out.println(result + "개의 행이 삭제되었습니다. ( 회원탈퇴 완료 )");
+			System.out.println(" DELETED " + result + " ROWS (MEMBER)");
 		}
 	}
 	public Member selectOne(Member member) {
@@ -83,21 +83,21 @@ public class MemberDAO extends DAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getId());
 			rs = pstmt.executeQuery();
-			if(rs.next()) {	//아이디 존재
+			if(rs.next()) {
 				if(rs.getString("pw").equals(SHA256.encodeSha256(member.getPw()))) {
-					// 비밀번호 일치 -> 로그인성공
 					member.setAuthority(rs.getInt("authority"));
 					loginInfo = member;
+					if(rs.getInt("authority")==-1) {
+						System.out.println("= Blocked User");
+					}
 				} else {
-					// 비밀번호 불일치 -> 로그인 실패
-					System.out.println("비밀번호가 틀렸습니다.");
+					System.out.println("= Password not matched");
 				}
-			} else {	// 아이디 없음
-				System.out.println("아이디가 존재하지 않습니다.");
+			} else {
+				System.out.println("= User ID not found");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("멤버 조회 실패");
 		} finally {
 			disconnect();
 		}
@@ -126,7 +126,33 @@ public class MemberDAO extends DAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("멤버 목록 조회 실패");
+		} finally {
+			disconnect();
+		}
+		
+		return list;
+	}
+	public List<Member> selectBlockAll() {
+		List<Member> list = new ArrayList<>();
+		try {
+			connect();
+			String sql = "SELECT * FROM members WHERE authority=-1";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				Member member = new Member();
+				member.setId(rs.getString("id"));
+				member.setPw(rs.getString("pw"));
+				member.setName(rs.getString("name"));
+				member.setSex(rs.getInt("sex"));
+				member.setBirth(rs.getDate("birth"));
+				member.setAddress(rs.getString("address"));
+				member.setPhone(rs.getString("phone"));
+				member.setAuthority(rs.getInt("authority"));
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			disconnect();
 		}

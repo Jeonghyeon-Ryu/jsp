@@ -1,10 +1,10 @@
 package common;
 
-import crawling.CrawlingSystem;
+import members.MemberSystem;
 
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
-		new CrawlingSystem();
+		new MemberSystem();
 	}
 }

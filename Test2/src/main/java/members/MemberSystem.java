@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import common.AdminSystem;
+import common.UserSystem;
+
 public class MemberSystem {
 	private Scanner sc = new Scanner(System.in); 
 	private MemberDAO mDAO = MemberDAO.getInstance();
@@ -13,19 +16,19 @@ public class MemberSystem {
 		while(true) {
 			menuPrint();
 			int menuNo = menuSelect();
-			if(menuNo == 1) {	// È¸¿ø°¡ÀÔ
+			if(menuNo == 1) {	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				signUp();
-			} else if(menuNo == 2) {	// ·Î±×ÀÎ
+			} else if(menuNo == 2) {	// ï¿½Î±ï¿½ï¿½ï¿½
 				login();
-			} else if(menuNo == 3) {	// È¸¿ø¼öÁ¤
+			} else if(menuNo == 3) {	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //				updateUser();
-			} else if(menuNo == 4) {	// È¸¿øÅ»Åğ
+			} else if(menuNo == 4) {	// È¸ï¿½ï¿½Å»ï¿½ï¿½
 //				deleteUser();
-			} else if(menuNo == 5) {	// ³»Á¤º¸
+			} else if(menuNo == 5) {	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //				selectOneUser();
-			} else if(menuNo == 6) {	// ÀüÃ¼¸ñ·Ï
+			} else if(menuNo == 6) {	// ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½
 				selectAllUser();
-			} else if(menuNo == 9) {	// Á¾·á
+			} else if(menuNo == 9) {	// ï¿½ï¿½ï¿½ï¿½
 				exit();
 				break;
 			} else {
@@ -34,19 +37,19 @@ public class MemberSystem {
 		}
 	}
 	private void menuPrint() {
-		System.out.println("============================================================");
-		System.out.println(" 1.È¸¿ø°¡ÀÔ  2.·Î±×ÀÎ  3.È¸¿ø¼öÁ¤  4.È¸¿øÅ»Åğ  5.³»Á¤º¸  6.ÀüÃ¼¸ñ·Ï  9.Á¾·á");
-		System.out.println("============================================================");
+		System.out.println("========================");
+		System.out.println(" 1.íšŒì›ê°€ì…  2.ë¡œê·¸ì¸  9.ì¢…ë£Œ");
+		System.out.println("========================");
 	}
 	private int menuSelect() {
-		System.out.print(" ¸Ş´º ¼±ÅÃ > ");
+		System.out.print(" ë©”ë‰´ ì„ íƒ > ");
 		return Integer.parseInt(sc.nextLine());
 	}
 	private void exit() {
-		System.out.println("Á¾·áÇÕ´Ï´Ù.");
+		System.out.println(" ì¢…ë£Œí•©ë‹ˆë‹¤.");
 	}
 	private void showInputError() {
-		System.out.println("Àß¸øµÈ ¸Ş´º¸¦ ÀÔ·ÂÇÏ¿´½À´Ï´Ù.");
+		System.out.println(" ë©”ë‰´ë¥¼ ì˜ëª» ì„ íƒí•˜ì˜€ìŠµë‹ˆë‹¤.");
 	}
 	private void signUp() {
 		Member member = inputAll();
@@ -54,19 +57,19 @@ public class MemberSystem {
 	}
 	private Member inputAll() {
 		Member member = new Member();
-		System.out.print("¾ÆÀÌµğ : ");
+		System.out.print("ì•„ì´ë”” : ");
 		member.setId(sc.nextLine());
-		System.out.print("ºñ¹Ğ¹øÈ£ : ");
+		System.out.print("ë¹„ë°€ë²ˆí˜¸ : ");
 		member.setPw(sc.nextLine());
-		System.out.print("ÀÌ¸§ : ");
+		System.out.print("ì´ë¦„ : ");
 		member.setName(sc.nextLine());
-		System.out.print("»ı³â¿ùÀÏ(¿¹: 901201-1) : ");
+		System.out.print("ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸(ì˜ˆ : 901201-1) : ");
 		String birth = sc.nextLine();
 		member.setSex(Integer.parseInt(String.valueOf(birth.charAt(7))));
 		member.setBirth(convertDate(birth));
-		System.out.print("ÁÖ¼Ò : ");
+		System.out.print("ì£¼ì†Œ : ");
 		member.setAddress(sc.nextLine());
-		System.out.print("ÀüÈ­¹øÈ£ : ");
+		System.out.print("ì „í™”ë²ˆí˜¸ : ");
 		member.setPhone(sc.nextLine());
 		return member;
 	}
@@ -94,13 +97,17 @@ public class MemberSystem {
 		loginInfo = mDAO.selectOne(member);
 		if(loginInfo==null) return;
 
-		System.out.println("·Î±×ÀÎ ¼º°ø");
+		System.out.println("ë¡œê·¸ì¸ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+		if(loginInfo.getAuthority() == 0)
+			new UserSystem(loginInfo);
+		else
+			new AdminSystem();
 	}
 	private Member inputMember() {
 		Member member = new Member();
-		System.out.print(" ¾ÆÀÌµğ : ");
+		System.out.print("ì•„ì´ë”” : ");
 		member.setId(sc.nextLine());
-		System.out.print(" ºñ¹Ğ¹øÈ£ : ");
+		System.out.print("ë¹„ë°€ë²ˆí˜¸ : ");
 		member.setPw(sc.nextLine());
 		
 		return member;
