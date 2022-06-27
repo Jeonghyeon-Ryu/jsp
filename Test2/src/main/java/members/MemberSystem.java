@@ -42,14 +42,20 @@ public class MemberSystem {
 		System.out.println("========================");
 	}
 	private int menuSelect() {
+		int menuNo = 0;
 		System.out.print(" 메뉴 선택 > ");
-		return Integer.parseInt(sc.nextLine());
+		try {
+			menuNo = Integer.parseInt(sc.nextLine());
+		} catch (NumberFormatException e) {
+			System.out.println("        > 숫자를 입력해주세요.");
+		}
+		return menuNo; 
 	}
 	private void exit() {
-		System.out.println(" 종료합니다.");
+		System.out.println("        > 종료합니다.");
 	}
 	private void showInputError() {
-		System.out.println(" 메뉴를 잘못 선택하였습니다.");
+		System.out.println("        > 메뉴를 잘못 선택하였습니다.");
 	}
 	private void signUp() {
 		Member member = inputAll();
@@ -57,19 +63,19 @@ public class MemberSystem {
 	}
 	private Member inputAll() {
 		Member member = new Member();
-		System.out.print("아이디 : ");
+		System.out.print("        > 아이디 : ");
 		member.setId(sc.nextLine());
-		System.out.print("비밀번호 : ");
+		System.out.print("        > 비밀번호 : ");
 		member.setPw(sc.nextLine());
-		System.out.print("이름 : ");
+		System.out.print("        > 이름 : ");
 		member.setName(sc.nextLine());
-		System.out.print("주민등록번호(예 : 901201-1) : ");
+		System.out.print("        > 주민등록번호(예 : 901201-1) : ");
 		String birth = sc.nextLine();
 		member.setSex(Integer.parseInt(String.valueOf(birth.charAt(7))));
 		member.setBirth(convertDate(birth));
-		System.out.print("주소 : ");
+		System.out.print("        > 주소 : ");
 		member.setAddress(sc.nextLine());
-		System.out.print("전화번호 : ");
+		System.out.print("        > 전화번호 : ");
 		member.setPhone(sc.nextLine());
 		return member;
 	}
@@ -97,7 +103,7 @@ public class MemberSystem {
 		loginInfo = mDAO.selectOne(member);
 		if(loginInfo==null) return;
 
-		System.out.println("로그인 되었습니다.");
+		System.out.println("        > 로그인 되었습니다.");
 		if(loginInfo.getAuthority() == 0)
 			new UserSystem(loginInfo);
 		else
@@ -105,9 +111,9 @@ public class MemberSystem {
 	}
 	private Member inputMember() {
 		Member member = new Member();
-		System.out.print("아이디 : ");
+		System.out.print("        > 아이디 : ");
 		member.setId(sc.nextLine());
-		System.out.print("비밀번호 : ");
+		System.out.print("        > 비밀번호 : ");
 		member.setPw(sc.nextLine());
 		
 		return member;

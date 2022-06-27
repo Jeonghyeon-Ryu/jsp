@@ -34,21 +34,21 @@ public class AdminSystem {
 	private int menuSelect() {
 		int menuNo = 0;
 		try {
-			System.out.println(" 메뉴 선택 > ");
+			System.out.print(" 메뉴 선택 > ");
 			menuNo = Integer.parseInt(sc.nextLine());
 		} catch (NumberFormatException e) {
-			System.out.println(" 잘못된 메뉴를 선택하였습니다.");
+			System.out.println("        > 숫자를 입력해주세요.");
 		}
 		return menuNo;
 	}
 	private void exit() {
-		System.out.println(" 관리 시스템을 종료합니다.");
+		System.out.println("        > 관리 시스템을 종료합니다.");
 	}
 	private void back() {
-		System.out.println(" 뒤로갑니다.");
+		System.out.println("        > 뒤로갑니다.");
 	}
 	private void showInputError() {
-		System.out.println(" 잘못된 메뉴를 입력하였습니다. 다시 선택해주세요.");
+		System.out.println("        > 잘못된 메뉴를 입력하였습니다. 다시 선택해주세요.");
 	}
 	
 	private void memberManagement() {
@@ -81,18 +81,18 @@ public class AdminSystem {
 		list.forEach(x -> System.out.println(x));
 	}
 	private void showOneMember() {
-		Member member = new Member();
-		member.setId(inputId());
-		member = MemberDAO.getInstance().selectOne(member);
+		Member member = null;
+		String id = inputId();
+		member = MemberDAO.getInstance().selectOne(id);
 		if(member==null) {
-			System.out.println("존재하지 않는 회원입니다.");
+			System.out.println("    > 존재하지 않는 회원입니다.");
 			return;
 		}
 		System.out.println(member);
 	}
 	private String inputId() {
 		String id = null;
-		System.out.println(" ID > ");
+		System.out.print(" ID > ");
 		id = sc.nextLine();
 		return id;
 	}
@@ -105,7 +105,7 @@ public class AdminSystem {
 		member.setId(inputId());
 		member = MemberDAO.getInstance().selectOne(member);
 		if(member==null) {
-			System.out.println("존재하지 않는 회원입니다.");
+			System.out.println("    > 존재하지 않는 회원입니다.");
 			return;
 		}
 		member.setAuthority(-1);

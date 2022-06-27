@@ -45,13 +45,13 @@ public class UserSystem {
 		return Integer.parseInt(sc.nextLine());
 	}
 	private void exit() {
-		System.out.println(" 종료합니다.");
+		System.out.println("        > 종료합니다.");
 	}
 	private void back() {
-		System.out.println(" 뒤로갑니다.");
+		System.out.println("        > 뒤로갑니다.");
 	}
 	private void showInputError() {
-		System.out.println(" 메뉴를 잘못 선택하였습니다.");
+		System.out.println("        > 메뉴를 잘못 선택하였습니다.");
 	}
 	
 	private void selectMainLocation() {
@@ -163,13 +163,13 @@ public class UserSystem {
 		try {
 			selectNo = Integer.parseInt(sc.nextLine());
 		} catch (NumberFormatException e) {
-			System.out.println("장소번호를 선택하여야 합니다.");
+			System.out.println(" 장소번호를 선택하여야 합니다.");
 		}
 		return selectNo;
 	}
 	private void selectedStore(int selectNo,MemberCourse course) {
 		if(StoreDAO.getInstance().selectOne(selectNo)==null) {
-			System.out.println("존재하지 않는 장소입니다.");
+			System.out.println(" 존재하지 않는 장소입니다.");
 		} else {
 			course.setLocation_id(selectNo);
 			course.setLocation_type(2);
@@ -178,7 +178,7 @@ public class UserSystem {
 	private void selectedFoodStore(int selectNo,MemberCourse course) {
 		FoodStore fs = FoodStoreDAO.getInstance().selectOne(selectNo);
 		if(fs==null) {
-			System.out.println("존재하지 않는 장소입니다.");
+			System.out.println(" 존재하지 않는 장소입니다.");
 		} else {
 			course.setLocation_id(selectNo);
 			course.setLocation_type(1);

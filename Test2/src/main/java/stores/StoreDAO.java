@@ -118,7 +118,7 @@ public class StoreDAO extends DAO{
 		List<Store> list = new ArrayList<>();
 		try {
 			connect();
-			String sql = "SELECT * FROM store WHERE address LIKE ('%"+address+"%') WHERE category_id="+category;
+			String sql = "SELECT * FROM store WHERE address LIKE ('%"+address+"%') AND category_id="+category;
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {

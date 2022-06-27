@@ -85,24 +85,59 @@ public class MemberDAO extends DAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				if(rs.getString("pw").equals(SHA256.encodeSha256(member.getPw()))) {
-					member.setAuthority(rs.getInt("authority"));
-					loginInfo = member;
 					if(rs.getInt("authority")==-1) {
 						System.out.println("= Blocked User");
+					} else {
+						loginInfo = new Member();
+						loginInfo.setId(rs.getString("id"));
+						loginInfo.setPw(rs.getString("pw"));
+						loginInfo.setName(rs.getString("name"));
+						loginInfo.setSex(rs.getInt("sex"));
+						loginInfo.setBirth(rs.getDate("birth"));
+						loginInfo.setAddress(rs.getString("address"));
+						loginInfo.setPhone(rs.getString("phone"));
+						loginInfo.setAuthority(rs.getInt("authority"));
 					}
 				} else {
-					System.out.println("= Password not matched");
+					System.out.println(" = Password not matched");
 				}
 			} else {
-				System.out.println("= User ID not found");
+				System.out.println(" = User ID not found");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
-		
 		return loginInfo;
+	}
+	public Member selectOne(String id) {
+		Member member = null;
+		try {
+			connect();
+			String sql = "SELECT * FROM members WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				member = new Member();
+				member.setId(rs.getString("id"));
+				member.setPw(rs.getString("pw"));
+				member.setName(rs.getString("name"));
+				member.setSex(rs.getInt("sex"));
+				member.setBirth(rs.getDate("birth"));
+				member.setAddress(rs.getString("address"));
+				member.setPhone(rs.getString("phone"));
+				member.setAuthority(rs.getInt("authority"));
+			} else {
+				System.out.println(" = User ID not found");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return member;
 	}
 	
 	public List<Member> selectAll() {
