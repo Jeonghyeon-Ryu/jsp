@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="members.MemberDAO"%>
 <%@ page import="java.io.PrintWriter" %>
-<% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="id" class="members.Member" scope="page"/>
+<jsp:useBean id="member" class="members.Member" scope="page"/>
+<% int cnt = 5; %>
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,13 @@
 	<meta charset="UTF-8">
 	<title>TraBee</title>
 </head>
+<%
+	pageContext.setAttribute("aa", "hello");
+%>
 <body>
-
+	${pageScope.aa} <br>
+	${empty param.n?'값이 비어있습니다.':param.n} <br>
+	${param.n/2 }<br>
+	${header.accept }
 </body>
-</html>
+</html>                                                                                                                                                                                   

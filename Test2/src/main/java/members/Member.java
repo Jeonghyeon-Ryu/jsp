@@ -16,7 +16,13 @@ public class Member {
 	// toString for TEST
 	@Override
 	public String toString() {
-		String info = "[ ID:" + id + ", 이름:" + name + ", 성:" + sex + ", 생일:" + birth + ", 주소:"
+		String info = "[ ID:" + id + ", 이름:" + name + ", 성:";
+		if(sex%2==1) {
+			info += "남";
+		} else {
+			info += "여";
+		}
+		info += ", 생일:" + birth + ", 주소:"
 				+ address + ", 전화번호:" + phone + ", 권한:";
 		if(authority==0) {
 			info+="유저 ]";

@@ -7,11 +7,6 @@ public class MemberCourse {
 	private int location_type;
 	private int location_id;
 	
-	@Override
-	public String toString() {
-		return "memberCourse [courseId=" + courseId + ", step=" + step + ", id=" + id + ", location_type="
-				+ location_type + ", location_id=" + location_id + "]";
-	}
 	public int getCourseId() {
 		return courseId;
 	}

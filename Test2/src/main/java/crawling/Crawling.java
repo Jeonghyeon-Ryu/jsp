@@ -16,8 +16,6 @@ import org.openqa.selenium.interactions.WheelInput;
 import common.BaseInfo;
 import foodstore.FoodStore;
 import foodstore.FoodStoreDAO;
-import stores.Store;
-import stores.StoreDAO;
 
 public class Crawling {
 	private String path = this.getClass().getResource("/").getPath()+"/resource/chromedriver.exe";

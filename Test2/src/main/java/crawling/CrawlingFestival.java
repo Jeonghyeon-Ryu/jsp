@@ -13,78 +13,66 @@ import common.BaseInfo;
 import stores.Store;
 import stores.StoreDAO;
 
-public class CrawlingStore {
+public class CrawlingFestival {
 	private String path = this.getClass().getResource("/").getPath()+"/resource/chromedriver.exe";
 	private final String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	private final String WEB_DRIVER_PATH = path;
 	private WebDriver driver;
-	private List<String> searchUrlList = new ArrayList<>();
+	private String searchUrlList = "";
 	List<BaseInfo> baseInfoList = null;
 	
-	public CrawlingStore() throws InterruptedException {
+	public CrawlingFestival() throws InterruptedException {
 		StoreDivision.readStoreDivision();
-		List<String> storeDivision = StoreDivision.getStoreDivision();
-		for(int k=0; k<storeDivision.size(); k++) {
-			ReadList rl = new ReadList(storeDivision.get(k));
-			rl.printStoreDivision();
-				
-			List<String> list = rl.getStoreDivision();
+		searchUrlList = "https://search.naver.com/search.naver?sm=tab_sug.top&where=nexearch&query=축제";
 			
-			for(int i=0; i<list.size(); i++ ) {
-				searchUrlList.add("https://search.naver.com/search.naver?sm=tab_sug.top&where=nexearch&query="+list.get(i));
+		// 웹 드라이버가 설치된 경로에서 드라이버.exe 파일 실행
+		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("start-maximized");
+		options.addArguments("--headless");
+		driver = new ChromeDriver(options);
+		int pageNum = Integer.parseInt(driver.findElement(By.xpath("//*[@id=\"main_pack\"]/div[3]/div[2]/div/div/div[3]/div[2]/div/span/span[3]")).getAttribute("innerText"));
+			
+		baseInfoList = new ArrayList<>();
+		// ******************************* 지도 좌표 Open
+		driver.get(searchUrlList);
+		for(int i=0; i<pageNum; i++) {
+			// 가게 리스트 스크롤
+				
+			BaseInfo info = new BaseInfo();
+			WebElement element;
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"mflick\"]/div/div/div/div[1]/div[1]/div[1]/div/div[1]/div/strong/a"));	// 축제명
+				info.setName(element.getAttribute("innerText"));
+			} catch (Exception e) {
+				info.setName("");
+			}
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"mflick\"]/div/div/div/div[1]/div[1]/div[1]/div/div[2]/dl/dd[1]"));	// 기간
+				info.setPhone(element.getAttribute("innerText"));
+			} catch (Exception e) {
+				info.setPhone("");
+			}
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"mflick\"]/div/div/div/div[1]/div[1]/div[1]/div/div[2]/dl/dd[2]"));	// 주소
+				info.setAddress(element.getAttribute("innerText"));
+			} catch (Exception e) {
+				info.setAddress("");
 			}
 			
-			// 웹 드라이버가 설치된 경로에서 드라이버.exe 파일 실행
-			System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("start-maximized");
-			options.addArguments("--headless");
-			driver = new ChromeDriver(options);
-			
-			
-			baseInfoList = new ArrayList<>();
-			// ******************************* 지도 좌표 Open
-			for(int i=0; i<searchUrlList.size(); i++) {
-				driver.get(searchUrlList.get(i));
-				Thread.sleep(2000);
-				// 가게 리스트 스크롤
-				
-				BaseInfo info = new BaseInfo();
-				WebElement element;
-				try {
-					element = driver.findElement(By.className("_3XamX"));	// 가게 이름
-					info.setName(element.getAttribute("innerText"));
-				} catch (Exception e) {
-					info.setName("");
-				}
-				try {
-					element = driver.findElement(By.className("_3ZA0S"));	// 가게 번호
-					info.setPhone(element.getAttribute("innerText"));
-				} catch (Exception e) {
-					info.setPhone("");
-				}
-				try {
-					element = driver.findElement(By.className("_2yqUQ"));	// 가게 주소
-					info.setAddress(element.getAttribute("innerText"));
-				} catch (Exception e) {
-					info.setAddress("");
-				}
-				
-				try {
-					element = driver.findElement(By.className("_3_09q"));
-					element.click();
-				} catch (Exception e) {
-					System.out.println("소개글 더보기 없음");
-				}
-				try {
-					element = driver.findElement(By.className("WoYOw"));	// 가게 소개
-					info.setNotice(element.getAttribute("innerText"));
-				} catch (Exception e) {
-					info.setNotice("");
-				}
-				baseInfoList.add(info);
+			try {
+				element = driver.findElement(By.className("_3_09q"));
+				element.click();
+			} catch (Exception e) {
+				System.out.println("소개글 더보기 없음");
 			}
-			inputDB(storeDivision.get(k));
+			try {
+				element = driver.findElement(By.className("WoYOw"));	// 가게 소개
+				info.setNotice(element.getAttribute("innerText"));
+			} catch (Exception e) {
+				info.setNotice("");
+			}
+			baseInfoList.add(info);
 		}
 	}
 	private void inputDB(String storeDivision) {

@@ -43,6 +43,9 @@ public class AdminSystem {
 	}
 	private void exit() {
 		System.out.println("        > 관리 시스템을 종료합니다.");
+		System.out.println();
+		System.out.println();
+		System.out.println();
 	}
 	private void back() {
 		System.out.println("        > 뒤로갑니다.");
@@ -63,6 +66,8 @@ public class AdminSystem {
 				showblockMember();
 			} else if(menuNo == 4) {	// 유저 차단
 				blockMember();
+			} else if(menuNo == 5) {	// 유저 차단
+				unblockMember();
 			} else if(menuNo == 9) {	// 뒤로가기
 				back();
 				break;
@@ -72,9 +77,9 @@ public class AdminSystem {
 		}
 	}
 	private void managementMenuPrint() {
-		System.out.println("==========================================================");
-		System.out.println(" 1.모든유저 조회  2.특정유저 조회  3.차단유저 조회  4.유저차단  9.뒤로가기");
-		System.out.println("==========================================================");
+		System.out.println("====================================================================");
+		System.out.println(" 1.모든유저 조회  2.특정유저 조회  3.차단유저 조회  4.유저차단  5.차단해제  9.뒤로가기");
+		System.out.println("====================================================================");
 	}
 	private void showAllMember() {
 		List<Member> list = MemberDAO.getInstance().selectAll();
@@ -101,14 +106,26 @@ public class AdminSystem {
 		list.forEach(x -> System.out.println(x));
 	}
 	private void blockMember() {
-		Member member = new Member();
-		member.setId(inputId());
-		member = MemberDAO.getInstance().selectOne(member);
+		Member member = null;
+		member = MemberDAO.getInstance().selectOne(inputId());
 		if(member==null) {
 			System.out.println("    > 존재하지 않는 회원입니다.");
 			return;
 		}
 		member.setAuthority(-1);
+		MemberDAO.getInstance().update(member);
+	}
+	private void unblockMember() {
+		Member member = null;
+		member = MemberDAO.getInstance().selectOne(inputId());
+		if(member==null) {
+			System.out.println("    > 존재하지 않는 회원입니다.");
+			return;
+		} else if(member.getAuthority()!=-1) {
+			System.out.println("    > 차단되지 않은 회원입니다.");
+			return;
+		}
+		member.setAuthority(0);
 		MemberDAO.getInstance().update(member);
 	}
 }

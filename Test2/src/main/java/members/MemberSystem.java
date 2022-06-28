@@ -69,10 +69,26 @@ public class MemberSystem {
 		member.setPw(sc.nextLine());
 		System.out.print("        > 이름 : ");
 		member.setName(sc.nextLine());
-		System.out.print("        > 주민등록번호(예 : 901201-1) : ");
-		String birth = sc.nextLine();
-		member.setSex(Integer.parseInt(String.valueOf(birth.charAt(7))));
-		member.setBirth(convertDate(birth));
+		while(true) { 
+			System.out.print("        > 주민등록번호(예 : 901201-1) : ");
+			String birth = sc.nextLine();
+			if(birth.length()!=8) {
+				System.out.println("        > 형식에 맞게 입력해주세요.");
+				continue;
+			}
+			try {
+				member.setSex(Integer.parseInt(String.valueOf(birth.charAt(7))));
+				member.setBirth(convertDate(birth));
+			} catch(NumberFormatException e) {
+				System.out.println("        > 형식에 맞게 입력해주세요.");
+				member.setBirth(Date.valueOf("1000-01-01"));
+			} 
+			System.out.println(member.getBirth().toString());
+			if(member.getBirth().toString().equals("1000-01-01")) {
+				continue;
+			}
+			break;
+		}
 		System.out.print("        > 주소 : ");
 		member.setAddress(sc.nextLine());
 		System.out.print("        > 전화번호 : ");
@@ -81,15 +97,21 @@ public class MemberSystem {
 	}
 	private Date convertDate(String birth) {
 		int year = Integer.parseInt(birth.substring(0, 2));
+		Date result = null;
 		if(year>50) {
 			year+=1900;
 		} else {
 			year+=2000;
 		}
+		
 		String temp = String.valueOf(year)+"-"+birth.substring(2, 4)+"-"+birth.substring(4, 6);
 		System.out.println(temp);
-		Date result = Date.valueOf(temp);
-		
+		try {
+			result = Date.valueOf(temp);
+		} catch (Exception e) {
+			System.out.println("        > 잘못된 주민등록번호를 입력하였습니다.");
+			result = Date.valueOf("1000-01-01");
+		}
 	
 		return result;
 	}

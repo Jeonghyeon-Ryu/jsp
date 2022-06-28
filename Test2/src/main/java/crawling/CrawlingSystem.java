@@ -52,10 +52,10 @@ public class CrawlingSystem {
 	}
 	private void setFoodStoreDivision() {
 		storeList = new ArrayList<>();
-		storeList.add("한식");
-//		storeList.add("중식");
-//		storeList.add("일식");
-//		storeList.add("양식");
+//		storeList.add("한식");
+		storeList.add("중식");
+		storeList.add("일식");
+		storeList.add("양식");
 //		storeList.add("카페");
 	}
 	private void setStoreDivision() {

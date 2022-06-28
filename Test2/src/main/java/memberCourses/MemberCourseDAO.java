@@ -25,7 +25,7 @@ public class MemberCourseDAO extends DAO{
 			pstmt.setString(2, course.getId());
 			pstmt.setInt(3, course.getLocation_type());
 			pstmt.setInt(4, course.getLocation_id());
-			pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

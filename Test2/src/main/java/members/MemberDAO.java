@@ -43,7 +43,7 @@ public class MemberDAO extends DAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE members SET pw=?,name=?,sex=?,birth=?,address=?,phone=? WHERE id=?";
+			String sql = "UPDATE members SET pw=?,name=?,sex=?,birth=?,address=?,phone=?,authority=? WHERE id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getPw());
 			pstmt.setString(2, member.getName());
@@ -51,7 +51,8 @@ public class MemberDAO extends DAO {
 			pstmt.setDate(4, member.getBirth());
 			pstmt.setString(5, member.getAddress());
 			pstmt.setString(6, member.getPhone());
-			pstmt.setString(7, member.getId());
+			pstmt.setInt(7, member.getAuthority());
+			pstmt.setString(8, member.getId());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

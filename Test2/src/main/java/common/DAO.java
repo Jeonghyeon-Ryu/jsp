@@ -32,7 +32,7 @@ public class DAO {
 			String filePath = ClassLoader.getSystemClassLoader().getResource(resource).getPath();
 			properties.load(new FileInputStream(filePath));
 		} catch (Exception e) {
-			System.out.println("DB Config Ω«∆– : " + e.toString());
+			System.out.println("DB Config ÔøΩÔøΩÔøΩÔøΩ : " + e.toString());
 		}
 		jdbc_driver = properties.getProperty("driver");
 		oracle_url = properties.getProperty("url");
@@ -45,9 +45,9 @@ public class DAO {
 			Class.forName(jdbc_driver);
 			conn = DriverManager.getConnection(oracle_url, id, pw);
 		} catch (ClassNotFoundException e) {
-			System.out.println("JDBC Driver ∑ŒµÂ Ω«∆– : " + e.toString());
+			System.out.println("JDBC Driver Î°úÎî©Ïã§Ìå® : " + e.toString());
 		} catch (SQLException e) {
-			System.out.println("Oracle Driver ∑ŒµÂ Ω«∆– : " + e.toString());
+			System.out.println("Oracle Driver Ï†ëÏÜçÏã§Ìå® : " + e.toString());
 		}
 	}
 
@@ -62,7 +62,7 @@ public class DAO {
 			if (conn != null)
 				conn.close();
 		} catch (SQLException e) {
-			System.out.println("Disconnect Ω«∆– : " + e.toString());
+			System.out.println("Disconnect ÔøΩÔøΩÔøΩÔøΩ : " + e.toString());
 		}
 	}
 }
