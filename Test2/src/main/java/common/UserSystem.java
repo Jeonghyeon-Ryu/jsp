@@ -42,9 +42,9 @@ public class UserSystem {
 	}
 	private void menuPrint() {
 		System.out.println("");
-		System.out.println("=================================");
-		System.out.println(" 1.여행코스 짜기  2.나의 계획  9.로그아웃");
-		System.out.println("=================================");
+		System.out.println("==========================================");
+		System.out.println(" 1.여행코스 짜기  2.나의 계획  3.회원정보  9.로그아웃");
+		System.out.println("==========================================");
 	}
 	
 	private int menuSelect() {
@@ -308,6 +308,6 @@ public class UserSystem {
 	}
 	private void showMyInfo() {
 		System.out.println("==========================================================");
-		System.out.println(MemberDAO.getInstance().selectOne(loginInfo));
+		System.out.println(loginInfo);
 	}
 }

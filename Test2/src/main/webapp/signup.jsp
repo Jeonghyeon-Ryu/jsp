@@ -81,15 +81,28 @@
 			height:25px;
 			background: none;
 		}
-	
+		.birth {
+			display:flex;
+		}
 		.birthday {
-			width: 100%;
+			width: 18%;
 			border:none;
 			outline:none;
 			color: #636e72;
 			font-size:16px;
 			height:25px;
 			background: none;
+			text-align: center;
+		}
+		.birthday.first {
+			float:left;
+			border:1px solid rgba(0,0,0,0.3);
+		}
+		.birthday.second {
+			float:left;
+			margin-left:5px;
+			width:3%;
+			border:1px solid rgba(0,0,0,0.3);
 		}
 	
 		.cellphoneNo {
@@ -124,24 +137,28 @@
 			background-position: right;
 		}
 	</style>
+	<script src="signup.js"></script>
 </head>
 <body>
-	<form action="signupAction.jsp" method="POST" class="signUpForm">
+	<form action="signupAction.jsp" method="POST" class="signUpForm" onsubmit="return checkAll()">
 		<h2>회원가입</h2>
 		<div class="textForm">
-			<input name="id" type="text" class="id" placeholder="아이디">
+			<input name="id" type="text" class="id" placeholder="아이디" onchange="checkID()">
 		</div>
 		<div class="textForm">
 			<input name="pw" type="password" class="pw" placeholder="비밀번호">
 		</div>
 		<div class="textForm">
-			<input name="verify" type="password" class="pw" placeholder="비밀번호 확인">
+			<input name="repw" type="password" class="pw" placeholder="비밀번호 확인" onchange="checkPw()">
 		</div>
 		<div class="textForm">
 			<input name="name" type="text" class="name" placeholder="이름">
 		</div>
-		<div class="textForm">
-			<input name="birth" type="text" class="birthday" placeholder="생년월일(901111)">
+		<div class="textForm birth">
+			<input name="birth" type="text" class="birthday first" placeholder="901111" maxlength="6">
+			<label>-</label>
+			<input name="birth2" type="text" class="birthday second" placeholder="1" maxlength="1">
+			<label>＊＊＊＊＊＊</label>
 		</div>
 		<div class="textForm">
 			<input name="email" type="text" class="email" placeholder="이메일">

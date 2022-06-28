@@ -3,7 +3,13 @@
 <%@ page import="members.MemberDAO"%>
 <%@ page import="java.io.PrintWriter" %>
 <jsp:useBean id="member" class="members.Member" scope="page"/>
-<% int cnt = 5; %>
+<jsp:setProperty name="member" property="id"/>
+<jsp:setProperty name="member" property="pw"/>
+<jsp:setProperty name="member" property="name"/>
+<% 
+	MemberDAO mDAO = MemberDAO.getInstance();
+	
+%>
 
 <!DOCTYPE html>
 <html>
