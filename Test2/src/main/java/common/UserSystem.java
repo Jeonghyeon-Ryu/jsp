@@ -9,6 +9,7 @@ import foodstore.FoodStoreDAO;
 import memberCourses.MemberCourse;
 import memberCourses.MemberCourseDAO;
 import members.Member;
+import members.MemberDAO;
 import stores.Store;
 import stores.StoreDAO;
 
@@ -30,7 +31,7 @@ public class UserSystem {
 			} else if (menuNo == 2) {	// 나의 코스 시스템
 				showMyCourse();
 			} else if (menuNo == 3) {	// 나의 정보 확인
-				
+				showMyInfo();
 			} else if (menuNo == 9) {	// 종료(로그아웃)
 				exit();
 				break;
@@ -304,5 +305,9 @@ public class UserSystem {
 			}
 		}
 		return result;
+	}
+	private void showMyInfo() {
+		System.out.println("==========================================================");
+		System.out.println(MemberDAO.getInstance().selectOne(loginInfo));
 	}
 }
