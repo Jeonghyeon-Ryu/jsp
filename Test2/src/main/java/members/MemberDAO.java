@@ -131,7 +131,7 @@ public class MemberDAO extends DAO {
 				member.setPhone(rs.getString("phone"));
 				member.setAuthority(rs.getInt("authority"));
 			} else {
-				System.out.println(" = User ID not found");
+				System.out.println(" = 해당 아이디는 사용되고있지 않은 아이디입니다.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

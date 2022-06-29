@@ -32,6 +32,8 @@ public class UserSystem {
 				showMyCourse();
 			} else if (menuNo == 3) {	// 나의 정보 확인
 				showMyInfo();
+			} else if (menuNo == 4) {
+				if(signout()) break;
 			} else if (menuNo == 9) {	// 종료(로그아웃)
 				exit();
 				break;
@@ -42,9 +44,9 @@ public class UserSystem {
 	}
 	private void menuPrint() {
 		System.out.println("");
-		System.out.println("==========================================");
-		System.out.println(" 1.여행코스 짜기  2.나의 계획  3.회원정보  9.로그아웃");
-		System.out.println("==========================================");
+		System.out.println("====================================================");
+		System.out.println(" 1.여행코스 짜기  2.나의 계획  3.회원정보  4.회원탈퇴  9.로그아웃");
+		System.out.println("====================================================");
 	}
 	
 	private int menuSelect() {
@@ -70,9 +72,9 @@ public class UserSystem {
 	private void selectMainLocation() {
 		// 메인 장소 선택
 		while(true) {
-			System.out.println("============================");
-			System.out.println(" 1.주소기준  2.축제기준  9.뒤로가기");
-			System.out.println("============================");
+			System.out.println("===================");
+			System.out.println(" 1.주소기준  9.뒤로가기");
+			System.out.println("===================");
 			int menuNo = menuSelect();
 			if(menuNo == 1) {	
 				setMainLocation(menuNo);
@@ -89,7 +91,6 @@ public class UserSystem {
 		// 여행 소분류 선택
 	}
 	private void setMainLocation(int menuNo) {
-		System.out.println("========== 장소선택으로 수정필요");
 		if(menuNo==1) {
 			System.out.print(" 주소 입력 > ");
 			mainLocation = sc.nextLine();
@@ -101,9 +102,10 @@ public class UserSystem {
 	// 수정할 번호 선택
 	private void showCurrentCourse() {
 		while(true) {
+			System.out.println("==============================");
 			for(int i=0; i<5; i++) {
 				if(course[i].getLocation_id()==0) {
-					System.out.println((i+1)+". 계획이 비어있습니다");
+					System.out.println((i+1)+". 계획을 추가해주세요.");
 				} else {
 					// 장소 정보(이름:주소) 출력
 					if(course[i].getLocation_type()==1) {
@@ -257,6 +259,7 @@ public class UserSystem {
 		}
 	}
 	private void listPaging(List<?> list, MemberCourse course) {
+		int flag=0;
 		if(list.size()==0) {
 			System.out.println(" 해당 지역에 등록된 장소가 없습니다.");
 		}
@@ -275,18 +278,24 @@ public class UserSystem {
 				}
 				i = n;
 			}
+			if(i==list.size()) flag=1;
 		}
-		if(list.get(0) instanceof FoodStore) {
-			selectedFoodStore(selectStore(),course);
-		} else if(list.get(0) instanceof Store) {
-			selectedStore(selectStore(),course);
+		if(list.size()<10 || flag==1) {
+			if(list.get(0) instanceof FoodStore) {
+				selectedFoodStore(selectStore(),course);
+			} else if(list.get(0) instanceof Store) {
+				selectedStore(selectStore(),course);
+			}
 		}
 	}
 	private int bottomPage(int i,int size){
 		int result = -2;
+		String menu = " 1.이전페이지  ["+(i/10)+"/"+(size/10)+"]"+"  2.다음페이지 ";
 		while(true) {
-			System.out.println("===================================");
-			System.out.println(" 1.이전페이지  2.다음페이지  3.선택  9.취소");
+			System.out.println("==============================");
+			System.out.println(menu);
+			System.out.println(" 3.선택                9.취소");
+			System.out.println("==============================");
 			int menuNo = menuSelect();
 			if(menuNo==1) {
 				if(i<=20) result=0;
@@ -309,5 +318,25 @@ public class UserSystem {
 	private void showMyInfo() {
 		System.out.println("==========================================================");
 		System.out.println(loginInfo);
+	}
+	
+	private boolean signout() {
+		boolean result=false;
+		while(true) {
+			System.out.print(" 정말 탈퇴하시겠습니까(Y/N) ? ");
+			String input = sc.nextLine();
+			if(input.equals("Y")) {
+				MemberDAO.getInstance().delete(loginInfo.getId());
+				result=true;
+				break;
+			} else if (input.equals("N")) {
+				System.out.println(" 취소합니다.");
+				result=false;
+				break;
+			} else {
+				System.out.println(" Y/N 둘 중 하나만 입력해주세요.");
+			}
+		}
+		return result;
 	}
 }

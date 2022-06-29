@@ -68,6 +68,8 @@ public class AdminSystem {
 				blockMember();
 			} else if(menuNo == 5) {	// 유저 차단
 				unblockMember();
+			} else if(menuNo == 6) {
+				deleteMember();
 			} else if(menuNo == 9) {	// 뒤로가기
 				back();
 				break;
@@ -77,9 +79,9 @@ public class AdminSystem {
 		}
 	}
 	private void managementMenuPrint() {
-		System.out.println("====================================================================");
-		System.out.println(" 1.모든유저 조회  2.특정유저 조회  3.차단유저 조회  4.유저차단  5.차단해제  9.뒤로가기");
-		System.out.println("====================================================================");
+		System.out.println("=============================================================================");
+		System.out.println(" 1.모든유저 조회  2.특정유저 조회  3.차단유저 조회  4.유저차단  5.차단해제  6.유저탈퇴  9.뒤로가기");
+		System.out.println("=============================================================================");
 	}
 	private void showAllMember() {
 		List<Member> list = MemberDAO.getInstance().selectAll();
@@ -127,5 +129,14 @@ public class AdminSystem {
 		}
 		member.setAuthority(0);
 		MemberDAO.getInstance().update(member);
+	}
+	private void deleteMember() {
+		String id = inputId();
+		Member member = MemberDAO.getInstance().selectOne(id);
+		if(member==null) {
+			System.out.println("    > 존재하지 않는 회원입니다.");
+			return;
+		}
+		MemberDAO.getInstance().delete(id);
 	}
 }

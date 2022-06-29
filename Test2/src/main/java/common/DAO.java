@@ -32,7 +32,7 @@ public class DAO {
 			String filePath = ClassLoader.getSystemClassLoader().getResource(resource).getPath();
 			properties.load(new FileInputStream(filePath));
 		} catch (Exception e) {
-			System.out.println("DB Config ���� : " + e.toString());
+			System.out.println("DB Config 실패 : " + e.toString());
 		}
 		jdbc_driver = properties.getProperty("driver");
 		oracle_url = properties.getProperty("url");

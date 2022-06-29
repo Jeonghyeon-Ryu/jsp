@@ -15,25 +15,29 @@ var pwFlag = 0; // password확인의 카운트를 세주는 변수
 var mailFlag = 0;  //mail 주소 확인의 카운트를 세주는 변수
 var numFlag = 0; //주민등록번호 확인의 카운트를 세주는 변수
 
+function x(){
+	alert("바뀌었습니다.");
+}
+
 //데이터 받아오기
 function valiData() {
-	id = document.getElementByName("id").value;
-	pw = document.getElementByName("pw").value;
-	repw = document.getElementByName("repw").value;
-	mail = document.getElementByName("email").value;
+	id = document.getElementsByClassName("id")[0].value;
+	pw = document.getElementsByClassName("pw")[0].value;
+	repw = document.getElementsByClassName("repw")[0].value;
+	mail = document.getElementsByClassName("email")[0].value;
 	//alert(id);
-	id_num_1 = document.getElementByName("birth").value;
-	id_num_2 = document.getElementById("id_num_2").value;
+	id_num_1 = document.getElementsByClassName("birthday first")[0].value;
+	id_num_2 = document.getElementsByClassName("birthday second")[0].value;
 }
 
 function checkID() { //아이디 유효성 검사
 	valiData();
 	if (re.test(id) == true && !(special_re.test(id)) == true) { //re에 만족하고
 		//찾는 문자열이, 들어있는지 아닌지 확인, 찾으려는 문자가 들어있으면, 결과는 "true"
-		alert(id + " : 사용 가능한 아이디 입니다.");
+		document.getElementsByClassName("id")[1].src="resource/check.png";
 		idFlag = 1; //idflag를 1로 변경
 	} else {
-		alert("[ID Error] 4~12자의 영문 대소문자,숫자만 입력해주세요.");
+		
 	}
 }
 
@@ -44,7 +48,7 @@ function checkPw() {
 		//찾는 문자열이, 들어있는지 아닌지 확인, 찾으려는 문자가 들어있으면, 결과는 "true"
 	} else {
 		if (pw == "") {
-			alert("[Password Error] 비밀번호를 입력해주세요.");
+			document.getElementsByClassName("pw")[1].src="resource/caution.png";
 		} else {
 			alert("[Password Error] 4~12자의 영문 대소문자,숫자만 입력해주세요.");
 			pw.value = "";
@@ -56,12 +60,12 @@ function checkPw() {
 function checkRePw() {
 	valiData();
 	if (pw != repw) {
-		alert("[Password Error] 비밀번호가 다릅니다. 다시 확인해 주세요.");
+		document.getElementsByClassName("pw")[1].src="resource/caution.png";
 	} else {
 		if (repw == "") {  //비밀번호 칸이 비어있는 상태에서 비밀번호 확인은 할 수 없음
-			alert("[Password Error] 비밀번호 확인을 하려면 비밀번호를 먼저 입력해주세요.");
+			document.getElementsByClassName("pw")[1].src="resource/caution.png";
 		} else {
-			alert("비밀번호가 일치합니다.");
+			document.getElementsByClassName("pw")[1].src="resource/check.png";
 			pwFlag = 1;
 			repw.value = "";
 			//pw.focus();
@@ -74,9 +78,9 @@ function checkMail() {
 	valiData();
 	if (re2.test(mail) != true) { //re에 만족하고
 		//찾는 문자열이, 들어있는지 아닌지 확인, 찾으려는 문자가 들어있으면, 결과는 "true"
-		alert("[Mail Error] 메일 형식을 확인해주세요.");
+		document.getElementsByClassName("email")[1].src="resource/caution.png";
 	} else {
-		alert("사용 가능한 메일 주소 입니다.");
+		document.getElementsByClassName("email")[1].src="resource/check.png";
 		mailFlag = 1;
 		mail.value = "";
 		//pw.focus();
@@ -86,6 +90,7 @@ function checkMail() {
 //주민등록번호 유효성 검사
 function checkNum() {
 	valiData();
+
 	for (var i = 0; i < id_num_1.length; i++) {
 		arrNum1[i] = id_num_1.charAt(i);
 	} // 주민번호 앞자리를 배열에 순서대로 담는다.
@@ -93,6 +98,7 @@ function checkNum() {
 	for (var i = 0; i < id_num_2.length; i++) {
 		arrNum2[i] = id_num_2.charAt(i);
 	} // 주민번호 뒷자리를 배열에 순서대로 담는다.
+	
 	var tempSum = 0;
 	for (var i = 0; i < id_num_1.length; i++) {
 		tempSum += arrNum1[i] * (2 + i);
@@ -105,13 +111,13 @@ function checkNum() {
 		}
 	} // 같은방식으로 앞 번호 계산한것의 합에 뒷번호 계산한것을 모두 더함
 	if ((11 - (tempSum % 11)) % 10 != arrNum2[6]) {
-		alert("올바른 주민번호가 아닙니다.");
+		document.getElementsByClassName("birthdayAlert")[0].src="resource/caution.png";
 		id_num_1 = "";
 		id_num_2 = "";
-		id_num_1.focus();
 	} else {
 		numFlag = 1;
-		if (arrNum2[0] == 1 || arrNum2[0] == 2) { // 주민등록번호 뒷자리 배열의 첫번째 값이 1이나 2면
+		document.getElementsByClassName("birthdayAlert")[0].src="resource/check.png";
+		/* if (arrNum2[0] == 1 || arrNum2[0] == 2) { // 주민등록번호 뒷자리 배열의 첫번째 값이 1이나 2면
 			var y = parseInt(id_num_1.substring(0, 2));
 			var m = parseInt(id_num_1.substring(2, 4));
 			var d = parseInt(id_num_1.substring(4, 6));
@@ -125,8 +131,9 @@ function checkNum() {
 			document.getElementById("years").value = 2000 + y; //2000년대 생
 			document.getElementById("month").value = m;
 			document.getElementById("day").value = d;
-		}
+		} */
 	}
+	
 } //checkNum함수 닫기
 
 //주소 형식

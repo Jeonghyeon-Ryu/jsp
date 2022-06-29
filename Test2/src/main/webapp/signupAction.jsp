@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="members.Member"%>
 <%@ page import="members.MemberDAO"%>
 <%@ page import="java.io.PrintWriter" %>
 <jsp:useBean id="member" class="members.Member" scope="page"/>
