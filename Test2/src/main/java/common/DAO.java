@@ -25,7 +25,7 @@ public class DAO {
 	}
 
 	private void dbConfig() {
-		String resource = "config/db.properties";
+		String resource = "WEB-INF/db.properties";
 		Properties properties = new Properties();
 
 		try {
@@ -33,6 +33,7 @@ public class DAO {
 			properties.load(new FileInputStream(filePath));
 		} catch (Exception e) {
 			System.out.println("DB Config 실패 : " + e.toString());
+			e.printStackTrace();
 		}
 		jdbc_driver = properties.getProperty("driver");
 		oracle_url = properties.getProperty("url");

@@ -6,12 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/dev/workspace/ojdbc6_g.jar">
+	<classpathentry kind="lib" path="C:/server/libs/ojdbc6_g.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/dev/selenium-server-4.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/server/libs/selenium-server-4.2.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
