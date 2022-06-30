@@ -21,16 +21,16 @@ public class DAO {
 	private String pw;
 
 	public DAO() {
-		dbConfig();
+//		dbConfig();
 	}
 
 	private void dbConfig() {
-		String resource = "WEB-INF/db.properties";
+		String resource = "/WEB-INF/db.properties";
 		Properties properties = new Properties();
 
 		try {
-			String filePath = ClassLoader.getSystemClassLoader().getResource(resource).getPath();
-			properties.load(new FileInputStream(filePath));
+//			String filePath = ClassLoader.getSystemClassLoader().getResource(resource).getPath();
+			properties.load(new FileInputStream(resource));
 		} catch (Exception e) {
 			System.out.println("DB Config 실패 : " + e.toString());
 			e.printStackTrace();
@@ -43,8 +43,8 @@ public class DAO {
 
 	protected void connect() {
 		try {
-			Class.forName(jdbc_driver);
-			conn = DriverManager.getConnection(oracle_url, id, pw);
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "me", "me");
 		} catch (ClassNotFoundException e) {
 			System.out.println("JDBC Driver 로딩실패 : " + e.toString());
 		} catch (SQLException e) {

@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="members.Member"%>
@@ -9,7 +10,10 @@
 <jsp:setProperty name="member" property="name"/>
 <% 
 	MemberDAO mDAO = MemberDAO.getInstance();
-	
+	List<Member> a = mDAO.selectAll();
+	System.out.println(member.getId());
+	System.out.println(member.getPw());
+	System.out.println(member.getName());
 %>
 
 <!DOCTYPE html>
@@ -18,13 +22,6 @@
 	<meta charset="UTF-8">
 	<title>TraBee</title>
 </head>
-<%
-	pageContext.setAttribute("aa", "hello");
-%>
 <body>
-	${pageScope.aa} <br>
-	${empty param.n?'값이 비어있습니다.':param.n} <br>
-	${param.n/2 }<br>
-	${header.accept }
-</body>
+
 </html>                                                                                                                                                                                   
