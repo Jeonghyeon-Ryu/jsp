@@ -1,37 +1,16 @@
 package members;
 
-import java.sql.Date;
-
 public class Member {
 	private String id;
 	private String pw;
 	private String name;
-	private int sex;
-	private Date birth;
+	private int identification;
 	private String address;
 	private String phone;
 	private int authority;
 	// authority : 0-user, 1-admin
 	
-	// toString for TEST
-	@Override
-	public String toString() {
-		String info = "[ ID:" + id + ", 이름:" + name + ", 성:";
-		if(sex%2==1) {
-			info += "남";
-		} else {
-			info += "여";
-		}
-		info += ", 생일:" + birth + ", 주소:"
-				+ address + ", 전화번호:" + phone + ", 권한:";
-		if(authority==0) {
-			info+="유저 ]";
-		} else {
-			info+="관리자 ]";
-		}
-		return info;
-	}
-	// Getter Setter
+	
 	public String getId() {
 		return id;
 	}
@@ -50,17 +29,11 @@ public class Member {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getSex() {
-		return sex;
+	public int getIdentification() {
+		return identification;
 	}
-	public void setSex(int sex) {
-		this.sex = sex;
-	}
-	public Date getBirth() {
-		return birth;
-	}
-	public void setBirth(Date birth) {
-		this.birth = birth;
+	public void setIdentification(int identification) {
+		this.identification = identification;
 	}
 	public String getAddress() {
 		return address;
@@ -81,5 +54,5 @@ public class Member {
 		this.authority = authority;
 	}
 	
-	
+
 }

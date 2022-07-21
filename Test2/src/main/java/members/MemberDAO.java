@@ -7,7 +7,7 @@ import java.util.List;
 import common.DAO;
 
 public class MemberDAO extends DAO {
-	//�̱���
+	// Singleton
 	private static MemberDAO mDAO = null;
 	private MemberDAO() {}
 	public static MemberDAO getInstance() {
@@ -21,16 +21,15 @@ public class MemberDAO extends DAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "INSERT INTO members(id,pw,name,sex,birth,address,phone) VALUES(?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO members(id,pw,name,identification,address,phone) VALUES(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getId());
 			String password = SHA256.encodeSha256(member.getPw());
 			pstmt.setString(2, password);
 			pstmt.setString(3, member.getName());
-			pstmt.setInt(4, member.getSex());
-			pstmt.setDate(5, member.getBirth());
-			pstmt.setString(6, member.getAddress());
-			pstmt.setString(7, member.getPhone());
+			pstmt.setInt(4, member.getIdentification());
+			pstmt.setString(5, member.getAddress());
+			pstmt.setString(6, member.getPhone());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,16 +42,14 @@ public class MemberDAO extends DAO {
 		int result = 0;
 		try {
 			connect();
-			String sql = "UPDATE members SET pw=?,name=?,sex=?,birth=?,address=?,phone=?,authority=? WHERE id=?";
+			String sql = "UPDATE members SET pw=?,name=?,address=?,phone=?,authority=? WHERE id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getPw());
 			pstmt.setString(2, member.getName());
-			pstmt.setInt(3, member.getSex());
-			pstmt.setDate(4, member.getBirth());
-			pstmt.setString(5, member.getAddress());
-			pstmt.setString(6, member.getPhone());
-			pstmt.setInt(7, member.getAuthority());
-			pstmt.setString(8, member.getId());
+			pstmt.setString(3, member.getAddress());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setInt(5, member.getAuthority());
+			pstmt.setString(6, member.getId());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,8 +90,7 @@ public class MemberDAO extends DAO {
 						loginInfo.setId(rs.getString("id"));
 						loginInfo.setPw(rs.getString("pw"));
 						loginInfo.setName(rs.getString("name"));
-						loginInfo.setSex(rs.getInt("sex"));
-						loginInfo.setBirth(rs.getDate("birth"));
+						loginInfo.setIdentification(rs.getInt("identification"));
 						loginInfo.setAddress(rs.getString("address"));
 						loginInfo.setPhone(rs.getString("phone"));
 						loginInfo.setAuthority(rs.getInt("authority"));
@@ -125,8 +121,7 @@ public class MemberDAO extends DAO {
 				member.setId(rs.getString("id"));
 				member.setPw(rs.getString("pw"));
 				member.setName(rs.getString("name"));
-				member.setSex(rs.getInt("sex"));
-				member.setBirth(rs.getDate("birth"));
+				member.setIdentification(rs.getInt("identification"));
 				member.setAddress(rs.getString("address"));
 				member.setPhone(rs.getString("phone"));
 				member.setAuthority(rs.getInt("authority"));
@@ -153,8 +148,7 @@ public class MemberDAO extends DAO {
 				member.setId(rs.getString("id"));
 				member.setPw(rs.getString("pw"));
 				member.setName(rs.getString("name"));
-				member.setSex(rs.getInt("sex"));
-				member.setBirth(rs.getDate("birth"));
+				member.setIdentification(rs.getInt("identification"));
 				member.setAddress(rs.getString("address"));
 				member.setPhone(rs.getString("phone"));
 				member.setAuthority(rs.getInt("authority"));
@@ -180,8 +174,7 @@ public class MemberDAO extends DAO {
 				member.setId(rs.getString("id"));
 				member.setPw(rs.getString("pw"));
 				member.setName(rs.getString("name"));
-				member.setSex(rs.getInt("sex"));
-				member.setBirth(rs.getDate("birth"));
+				member.setIdentification(rs.getInt("identification"));
 				member.setAddress(rs.getString("address"));
 				member.setPhone(rs.getString("phone"));
 				member.setAuthority(rs.getInt("authority"));

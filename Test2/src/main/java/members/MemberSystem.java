@@ -124,8 +124,8 @@ public class MemberSystem {
 			System.out.print("        > 주민등록번호(예 : 901201-1) : ");
 			String birth = sc.nextLine();
 			if(isPersonalID(birth)) {
-				member.setSex(Integer.parseInt(String.valueOf(birth.charAt(7))));
-				member.setBirth(convertDate(birth));
+//				member.setSex(Integer.parseInt(String.valueOf(birth.charAt(7))));
+//				member.setBirth(convertDate(birth));
 				break;
 			} else if (birth.equals("9")) {
 				return null;
