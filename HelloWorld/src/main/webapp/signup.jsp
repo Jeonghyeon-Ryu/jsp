@@ -154,8 +154,6 @@
 	<script type="text/javascript" src="signup.js"></script>
 </head>
 <body>
-	<form action="signup" method="GET" class="signUpForm" onsubmit="return checkAll()">
-	<form action="EmpListServlet" method="POST" class="signUpForm" onsubmit="return checkAll()">
 	<form action="EmpListServlet" method="POST" class="signUpForm" onsubmit="return checkAll()">
 		<h2>회원가입</h2>
 		<div class="textForm">
