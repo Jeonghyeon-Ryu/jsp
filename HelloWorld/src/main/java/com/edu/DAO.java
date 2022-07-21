@@ -1,4 +1,4 @@
-package common;
+package com.edu;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -21,11 +21,11 @@ public class DAO {
 	private String pw;
 
 	public DAO() {
-		dbConfig();
+//		dbConfig();
 	}
 
 	private void dbConfig() {
-		String resource = "/WEB-INF/classes/db.properties";
+		String resource = "WEB-INF/classes/config/db.properties";
 		Properties properties = new Properties();
 
 		try {
@@ -43,8 +43,10 @@ public class DAO {
 
 	protected void connect() {
 		try {
-			Class.forName(jdbc_driver);
-			conn = DriverManager.getConnection(oracle_url, id, pw);
+//			Class.forName(jdbc_driver);
+//			conn = DriverManager.getConnection(oracle_url, id, pw);
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "hr", "hr");
 		} catch (ClassNotFoundException e) {
 			System.out.println("JDBC Driver 로딩실패 : " + e.toString());
 		} catch (SQLException e) {

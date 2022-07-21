@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html/get.html</title>
+</head>
+<body>
+	<form action="/HelloWorld/addmember" method="POST">
+		<fieldset>
+			UserName : <input type="text" name="user_name"><br>
+			Password : <input type="password" name="user_pass"><br>
+			Role : <select name="role">
+				<option value=0>관리자</option>
+				<option value=1>유저</option>
+			</select><br>
+			<input type="submit" value="send">
+		</fieldset>
+	</form>
+	<form action="/HelloWorld/addmember" method="GET">
+		<fieldset>
+			UserName : <input type="text" name="user_name"><br>
+			Password : <input type="password" name="user_pass"><br>
+			Role : <select name="role">
+				<option value=0>관리자</option>
+				<option value=1>유저</option>
+			</select><br>
+			<input type="submit" value="send">
+		</fieldset>
+	</form>
+	<script>
+		let form = document.querySelector("form");
+		let userName = document.querySelector("input[name='user_name']");
+		let userPass = document.querySelector("input[name='user_pass']");
+		
+		form.addEventListener('submit', function(e) {
+			e.preventDefault();
+			if(userName.value==''||userPass.value==''){
+				alert('값을 입력하세요');
+				return;
+			}
+			this.submit();
+		});
+	</script>
+</body>
+</html>
