@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+* {
+	box-sizing: border-box;
+}
+
+body {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+form>label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+h3 {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+input[type='submit'], input[type='reset'] {
+	padding: 10px 20px;
+	border: 1px solid black;
+	background: white;
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+	<h3>회원정보</h3>
+	<form action="queryTest" method="post">
+		<label>아이디 : <input type="text" name="id"></label><br> <label>비밀번호
+			: <input type="password" name="pw">
+		</label><br> <label>이름 : <input type="text" name="name"></label><br>
+		<label>취미 : <label><input type="checkbox" name="hobby"
+				value="climbing" checked>등산</label> <label><input
+				type="checkbox" name="hobby" value="sport">운동</label> <label><input
+				type="checkbox" name="hobby" value="reading">독서</label> <label><input
+				type="checkbox" name="hobby" value="traveling">여행</label></label><br> <label>성별
+			: <label><input type="radio" name="gender" value="male"
+				checked>남자</label> <label><input type="radio" name="gender"
+				value="female">여자</label>
+		</label><br> <label>종교 : <select name="religion">
+				<option value="crist" selected>기독교</option>
+				<option value="bud">불교</option>
+				<option value="cathol">천주교</option>
+				<option value="atheism">무교</option>
+		</select></label><br> <label>[자기소개]<br> <textarea name="introduction"
+				cols="30" rows="10"></textarea><br>
+		</label> <input type="submit" value="전송"> <input type="reset"
+			value="초기화">
+	</form>
+
+	<input type="text" id='param'>
+	<input type="button" value="parameter 값 찾기" onclick="paramclick()">
+	<script>
+		function paramclick() {
+			let str = "id=%EC%95%84%EC%9D%B4%EB%94%94%EC%9E%84%EB%8B%A4&pw=qlqjsdlaek&name=%EB%A5%98%EC%A0%95%ED%98%84&hobby=climbing&gender=male&religion=cathol&introduction=%EC%9E%90%EA%B8%B0%EC%86%8C%EA%B0%9C%EC%9E%84%EB%8B%A4";
+			new String('str').getParameter(str);
+		}
+
+		String.prototype.getParameter = function(str) {
+			let param = document.querySelector('#param');
+			let preIndex = str.indexOf(param.value);
+			let nextIndex = str.slice(preIndex, str.length).indexOf("&");
+			let value = str.slice(preIndex + param.value.length + 1, preIndex
+					+ nextIndex);
+			value = decodeURI(value);
+			alert(value);
+		}
+	</script>
+</body>
+</html>

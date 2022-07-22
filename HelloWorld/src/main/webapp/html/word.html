@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #show {
+      width: 250px;
+      height: 250px;
+      background: yellow;
+      padding:5px;
+    }
+
+    #show>span {
+      display: inline-block;
+      width: 80px;
+      height: 1rem;
+      font-size: 0.7rem;
+      font-weight: bold;
+      background: aqua;
+      border:1px solid black;
+      text-align: center;
+    }
+    label{
+      display: block;
+      text-align: center;
+      width:250px;
+      height:20px;
+      background: yellow;
+      color:red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" name="user-input" id="user-input">
+  <div id="show"></div>
+  <label id="time"></label>
+  <script>
+    let startTime=60;
+    let timer;
+    let words =
+      `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, debitis? Adipisci, aliquid iusto. Placeat, explicabo, eligendi a ut voluptatum cumque dolorem, odio eaque repellat debitis distinctio nam iure libero consectetur.`;
+    let wordList = words.split(' ');
+
+    for(let word of wordList) {
+      let span = document.createElement('span');
+      span.innerText = word;
+      document.querySelector('#show').appendChild(span);
+    }
+    document.querySelector('#user-input').addEventListener('keydown',function(e){
+      if(startTime==60){
+        window.clearInterval(timer);
+        timer = window.setInterval(calcTimer,1000);
+      }
+      if(e.keyCode == 13){
+        let spans = document.querySelectorAll('span');
+        for(span of spans){
+          if(this.value == span.innerText){
+            span.remove();
+            this.value='';
+            this.focus();
+          }
+        }
+      }
+    })
+    function calcTimer(){
+      let spans = document.querySelectorAll('span');
+      if(startTime==0){
+        if(spans.length==0){
+          alert('성공!');
+        } else {
+          alert('실패!');
+        }
+        for(span of spans){
+          span.remove();
+        }
+        for(let word of wordList) {
+          let span = document.createElement('span');
+          span.innerText = word;
+          document.querySelector('#show').appendChild(span);
+        }
+        startTime=60;
+        window.clearInterval(timer);
+      } else {
+        startTime--;
+      }
+      document.querySelector('#time').innerHTML=startTime;
+    }
+  </script>
+</body>
+
+</html>
