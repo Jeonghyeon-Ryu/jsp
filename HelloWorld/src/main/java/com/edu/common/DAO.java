@@ -1,4 +1,4 @@
-package com.edu;
+package com.edu.common;
 
 import java.io.FileInputStream;
 import java.sql.Connection;

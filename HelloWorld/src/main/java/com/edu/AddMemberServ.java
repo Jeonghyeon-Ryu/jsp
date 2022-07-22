@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.edu.common.EmpDAO;
+
 @WebServlet("/addmember")
 public class AddMemberServ extends HttpServlet{
 	@Override
@@ -24,12 +26,20 @@ public class AddMemberServ extends HttpServlet{
 		
 		// get:수정, post:입력
 		if(req.getMethod().toUpperCase().equals("GET")) {
-			dao.updateMember(name, pass, role);
-			resp.getWriter().print("회원 정보 수정 성공");
+			if(dao.updateMember(name, pass, role)>0){
+				resp.getWriter().print("회원 정보 수정 성공");
+			}else {
+				resp.sendRedirect("html/get.html");
+				resp.getWriter().print("<script>alert('정보수정 실패')</script>");
+			}
 		} else {
-			dao.insertMember(name, pass, role);
-			resp.getWriter().print("회원가입 성공");
+			if(dao.insertMember(name, pass, role)>0){
+				resp.getWriter().print("회원가입 성공");
+			}else {
+				resp.getWriter().print("<script>alert('회원가입 실패')</script>");
+				resp.sendRedirect("html/get.html");
+			}
 		}
-
+		
 	}
 }
