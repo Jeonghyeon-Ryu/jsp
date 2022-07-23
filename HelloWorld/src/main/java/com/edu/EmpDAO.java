@@ -6,7 +6,8 @@ import java.util.List;
 
 public class EmpDAO extends DAO{
 	
-	public void updateMember(String name, String pass, String role) {
+	public int updateMember(String name, String pass, String role) {
+		int result=0;
 		connect();
 		try {
 			String sql = "UPDATE members SET member_pw=?,member_role=? where member_id=?";
@@ -14,20 +15,17 @@ public class EmpDAO extends DAO{
 			pstmt.setString(1, pass);
 			pstmt.setInt(2, Integer.parseInt(role));
 			pstmt.setString(3, name);
-			int result = pstmt.executeUpdate();
-			if(result > 0 ) {
-				System.out.println(result + "개의 행이 업데이트 되었습니다.");
-			} else {
-				System.out.println("회원정보 수정 실패");
-			}
+			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
+			return result;
 		}
 	}
 	
-	public void insertMember(String name, String pass, String role ) {
+	public int insertMember(String name, String pass, String role ) {
+		int result=0;
 		connect();
 		try {
 			String sql = "INSERT INTO members VALUES(?,?,?)";
@@ -35,7 +33,7 @@ public class EmpDAO extends DAO{
 			pstmt.setString(1, name);
 			pstmt.setString(2, pass);
 			pstmt.setInt(3, Integer.parseInt(role));
-			int result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 			if(result>0) {
 				System.out.println(result + "개의 행이 추가되었습니다.");
 			} else {
@@ -45,6 +43,7 @@ public class EmpDAO extends DAO{
 			e.printStackTrace();
 		} finally {
 			disconnect();
+			return result;
 		}
 	}
 	

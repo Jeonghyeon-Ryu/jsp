@@ -21,15 +21,20 @@ public class AddMemberServ extends HttpServlet{
 		String role = req.getParameter("role");
 		
 		EmpDAO dao = new EmpDAO();
-		
 		// get:수정, post:입력
 		if(req.getMethod().toUpperCase().equals("GET")) {
-			dao.updateMember(name, pass, role);
-			resp.getWriter().print("회원 정보 수정 성공");
+			if(dao.updateMember(name, pass, role)>0) {
+				resp.getWriter().print("회원 정보 수정 성공");
+			}else {
+				resp.getWriter().print("<script>alert('회원 정보 수정 실패')</script>");
+			}
 		} else {
-			dao.insertMember(name, pass, role);
-			resp.getWriter().print("회원가입 성공");
+			if(dao.insertMember(name, pass, role)>0) {
+				resp.getWriter().print("회원가입 성공");
+			}else {
+				resp.getWriter().print("<script>alert('회원가입 실패')</script>");
+			}
+			
 		}
-
 	}
 }
